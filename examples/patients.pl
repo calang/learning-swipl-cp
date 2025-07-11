@@ -45,16 +45,24 @@ all_distinct_sp(SPatients) :-
     sp_ids(SPatients, Id_list),
     all_distinct(Id_list).
 
-see_patients(SPatients) :-
-    patients_list(Patients),
-    writeln(Patients),
-    length(Patients, Count),
-    spatients_rows_cols(SPatients, Count, 8),
+see_patients(Patients, SPatients) :-
+    % problem
+    length(Patients, Rows),
+    Patients = [Pat1|_],
+    length(Pat1, Cols),
+    % solution
+    spatients_rows_cols(SPatients, Rows, Cols),
+    % constraints
+    % can be specified in any order; execution time is not affected in this case
     tuples_in(SPatients, Patients),
     all_distinct_sp(SPatients),
     lex_chain(SPatients),
+    % labeling
     flatten(SPatients, Flat),
     label(Flat).
 
-:- see_patients(SPatients), writeln(SPatients).
+:- patients_list(Patients),
+   writeln(Patients),
+   see_patients(Patients, SPatients),
+   writeln(SPatients).
 
