@@ -1,6 +1,6 @@
 # swipl-clp
 
-Learning how to use CLP(X) SWI-Prolog packages.
+Learning how to use clp(X) SWI-Prolog packages, especially clp(fd).
 
 ## Installation
 - Install [Swi-Prolog](swi-prolog.org)
