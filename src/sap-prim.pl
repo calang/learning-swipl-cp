@@ -1,24 +1,15 @@
-% Horarios de preescolar y primaria
+% En este archivo se define la instancia del problema a resolverse.
 
-:- use_module(library(clpfd)).
+:- use_module(module(timetable_base)).
 
-
+% total de lecciones por semana por nivel.
 lecc_por_sem(40).
-
-% nivel
-% nivel(?Nivel)
-nivel(inter).
-nivel(trans).
-nivel(1).
-nivel(2).
-nivel(3).
-nivel(4).
-nivel(5).
-nivel(6).
 
 
 % requisitos por nivel
 % req(+Nivel, ?Materia, ?Cant_lecciones)
+%
+% En el nivel Nivel, la materia Materia requiere Cant_lecciones.
 
 req(inter, edfís, 2).
 req(inter, infor, 1).
@@ -98,13 +89,21 @@ req(6, música, 1).
 
 req(Nivel, resto, Resto) :-
     lecc_por_sem(Lecc_por_sem),
-    findall(Cantidad, req(Nivel, _Materia, Cantidad), Lecciones),
+    findall(
+        Cantidad,
+        (   dif(resto, Materia),
+            req(Nivel, Materia, Cantidad)
+        ),
+        Lecciones
+    ),
     sum_list(Lecciones, Suma_Cantidad),
     Resto #= Lecc_por_sem - Suma_Cantidad.
 
 
 % asignación de profesores a materias por nivel
 % prof(?Profesor, ?Nivel, ?Materia)
+%
+% Profesor es un profesor que está asignado a la materia Materia en el nivel Nivel.
 
 prof(mpaula, inter, edfís).  % <-- ???
 prof(jonathan, inter, infor).
@@ -193,21 +192,10 @@ prof(alonso, 6, música).
 prof(daleana, 6, resto).
 
 
-% bloques disponibles
-% bloque(?Dia, ?Bloque, ?Leccion)
-
-bloque(Dia, Bloque, Leccion) :-
-    dia(Dia),
-    bloque(Bloque),
-    leccion(Leccion).
-
-dia(D) :- member(D, [lun, mar, mie, jue, vie]).
-bloque(Bloque) :- member(Bloque, [1, 2, 3, 4]).
-leccion(L) :- member(L, [a, b]).    
-
-
 % disponibilidad de profesores
 % disp(?Prof, ?Dia, ?Bloque, ?Leccion).
+%
+% Prof es un profesor, disponible en el día Dia, bloque Bloque y lección Leccion.
 
 disp(angie, mie, B, L) :-
     member(B, [2,3]),

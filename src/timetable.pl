@@ -62,5 +62,3 @@ check_base :-
                 nl
             )
     ).
-
-
