@@ -8,3 +8,5 @@
 :- asserta(user:file_search_path(src, 'src')).
 :- asserta(user:file_search_path(module, 'src/module')).
 
+:- use_module(library(clpfd)).
+
