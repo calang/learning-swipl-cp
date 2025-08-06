@@ -1,6 +1,14 @@
 % En este archivo se define la instancia del problema a resolverse.
 
+:- module(sap_prim, [
+    lecc_por_sem/1,
+    req/3,
+    prof/3,
+    disp/4
+]).
+
 :- use_module(module(timetable_base)).
+
 
 % total de lecciones por semana por nivel.
 lecc_por_sem(40).
@@ -104,7 +112,6 @@ req(Nivel, resto, Resto) :-
 % prof(?Profesor, ?Nivel, ?Materia)
 %
 % Profesor es un profesor que está asignado a la materia Materia en el nivel Nivel.
-
 prof(mpaula, inter, edfís).  % <-- ???
 prof(jonathan, inter, infor).
 prof(mjose, inter, inglés).
