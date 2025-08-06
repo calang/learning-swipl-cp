@@ -13,8 +13,8 @@
 ]).
 
 :- use_module([
-    src(sap_prim),
-    module(timetable_base)
+    module(timetable_base),
+    module(table_reqs)
     ]).
 
 

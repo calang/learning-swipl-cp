@@ -1,6 +1,6 @@
 % En este archivo se define la instancia del problema a resolverse.
 
-:- module(sap_prim, [
+:- module(table_reqs, [
     lecc_por_sem/1,
     req/3,
     prof/3,

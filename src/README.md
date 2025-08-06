@@ -14,12 +14,12 @@ Overall organization of the project.
     - Defines modules search path.
   - `timetable.pl`
     - Main program logic.
-  - `sap_prim.pl`
-    - Describes the specific requirements of the sample school timetable to be generated.
-    - Written based on `timetable_base.pl`
   - `module`
     - `timetable_base.pl`
       - Basic predicates, defining timetable structure.
+    - `table_reqs.pl`
+      - Describes the specific requirements of the sample school timetable to be generated.
+      - Written based on `timetable_base.pl`
     - `validation.pl`
       - predicates to validate the initial requirements.
     - `constraints.pl`
