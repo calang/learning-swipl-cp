@@ -1,4 +1,5 @@
 % basic predicates for timetable
+
 :- module(timetable_base, [
     nivel/1,
     bloque/3,
