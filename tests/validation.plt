@@ -18,13 +18,18 @@ swipl -g run_tests,halt 'tests/validation.plt'
 
 :- use_module(library(clpfd)).
 
-:- asserta(user:file_search_path(module, 'tests/data')).
+:- asserta(user:file_search_path(module, 'tests/data/validation')).
 
 
 
 :- begin_tests(process).
 
-:- use_module('../src/module/validation.pl').
+:- use_module([
+    '../src/module/validation.pl',
+    module(timetable_base),
+    module(table_reqs)
+    ]).
+
 
 test(restos_negativos) :-
     restos_negativos(R),
@@ -34,6 +39,22 @@ test(restos_negativos) :-
         fail
     ).
 
+
+% esta prueba no es efectiva por la posible existencia de un resto negativo
+% se mantiene, aunque sea redundante, para verificar que la condición se cumple
+test(suma_lecciones_por_nivel) :-
+    lecc_por_sem(Lecc_por_sem),
+    forall(
+        nivel(Nivel),
+        (   suma_lecciones_por_nivel(Nivel, Suma),
+            (
+                Suma = Lecc_por_sem
+            ->  true
+            ;   format('~nError: suma de lecciones por nivel ~w distinta de ~w: ~w~n', [Nivel, Lecc_por_sem, Suma]),
+                fail
+            )
+        )
+    ).
 
 
 % test(solve_all_iqr_base, [setup(load_graph('../data/graph.pl'))]) :-
