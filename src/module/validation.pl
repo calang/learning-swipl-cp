@@ -128,3 +128,19 @@ ningun_profesor_sin_poder_cubrir :-
     format('Error: profesor(es) con cantidad de materias mayor a lo que puede cubrir: ~w~n', [ProfCant]),
     fail.
 ningun_profesor_sin_poder_cubrir.
+
+% ningun profesor puede estar disponble para dar más lecciones que el total de lecciones por semana.
+ningun_profesor_sobredisponible :-
+    lecc_por_sem(LeccPorSem),
+    findall(
+        (Profesor, CantidadDispo),
+        (   prof_disponible(Profesor, CantidadDispo),
+            CantidadDispo > LeccPorSem
+        ),
+        ProfCant
+    ),
+    ProfCant \= [], !,
+    format('Error: profesor(es) con disponibilidad mayor a lecciones por semana: ~w~n', [ProfCant]),
+    fail.
+ningun_profesor_sobredisponible.
+
