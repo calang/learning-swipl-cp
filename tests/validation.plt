@@ -57,6 +57,22 @@ test(suma_lecciones_por_nivel) :-
     ).
 
 
+test(req_sin_profesor) :-
+    findall(
+        (Nivel, Materia),
+        req_sin_profesor(Nivel, Materia),
+        Req_sin_Prof
+    ),
+    (   Req_sin_Prof = [ (6,música) ]
+    ->  true
+    ;   format('~nError: se requisitos sin profesor = [(6,música)], pero se encontró~n~w~n', [Req_sin_Prof]),
+        fail
+    ).
+
+
+
+
+
 % test(solve_all_iqr_base, [setup(load_graph('../data/graph.pl'))]) :-
 %     solve_all_iqr_base.
 

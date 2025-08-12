@@ -197,7 +197,7 @@ prof(angie, 6, francés).
 prof(jonathan, 6, infor).
 prof(melissa, 6, inglés).
 prof(daleana, 6, mate).
-prof(alonso, 6, música).
+% prof(alonso, 6, música).
 prof(daleana, 6, resto).
 
 
