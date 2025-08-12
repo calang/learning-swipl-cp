@@ -70,8 +70,38 @@ test(req_sin_profesor) :-
     ).
 
 
+test(prof_cubriendo_lecciones1) :-
+    prof_cubriendo_lecciones(angie, Cantidad_1),
+    (    Cantidad_1 = 6
+    ->   true
+    ;    format('~nError: cantidad de lecciones cubiertas por angie distinta de 6: ~w~n', [Cantidad_1]),
+         fail
+    ).
+
+test(prof_cubriendo_lecciones2) :-
+    prof_cubriendo_lecciones(alonso, Cantidad_1),
+    (    Cantidad_1 = 7
+    ->   true
+    ;    format('~nError: cantidad de lecciones cubiertas por alonso distinta de 7: ~w~n', [Cantidad_1]),
+         fail
+    ).
 
 
+test(prof_disponible1) :-
+    prof_disponible(angie, Cantidad_1),
+    (    Cantidad_1 = 4
+    ->   true
+    ;    format('~nError: cantidad de lecciones disponibles por angie distinta de 4: ~w~n', [Cantidad_1]),
+         fail
+    ).
+    
+test(prof_disponible2) :-
+    prof_disponible(alonso, Cantidad_1),
+    (    Cantidad_1 = 8
+    ->   true
+    ;    format('~nError: cantidad de lecciones disponibles por alonso distinta de 8: ~w~n', [Cantidad_1]),
+         fail
+    ).
 
 % test(solve_all_iqr_base, [setup(load_graph('../data/graph.pl'))]) :-
 %     solve_all_iqr_base.
