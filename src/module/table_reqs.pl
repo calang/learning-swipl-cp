@@ -97,6 +97,7 @@ req(6, música, 1).
 
 req(Nivel, resto, Resto) :-
     lecc_por_sem(Lecc_por_sem),
+    nivel(Nivel),
     findall(
         Cantidad,
         (   dif(resto, Materia),
@@ -122,7 +123,6 @@ prof(mpaula, trans, edfís).
 prof(jonathan, trans, infor).
 prof(audry, trans, inglés).
 prof(alonso, trans, música).
-prof(alisson, trans, resto).
 prof(audry, trans, resto).
 prof(sol, trans, resto).
 
@@ -205,7 +205,7 @@ prof(daleana, 6, resto).
 % Prof es un profesor, disponible en el día Dia, bloque Bloque y lección Leccion.
 
 disp(angie, mie, B, L) :-
-    member(B, [2,3]),
+    member(B, [1,2,3,4]),
     member(L, [a,b]).
 disp(mpaula, D, B, L) :-
     member(D, [lun,mar,jue]),

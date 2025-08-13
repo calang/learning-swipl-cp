@@ -5,7 +5,8 @@
     bloque/3,
     dia/1,
     bloque/1,
-    leccion/1
+    leccion/1,
+    prof/1
 ]).
 
 
@@ -46,3 +47,17 @@ bloque(4).
 
 leccion(a).
 leccion(b).
+
+% prof(?Profesor).
+prof(alisson).
+prof(alonso).
+prof(angie).
+prof(audry).
+prof(daleana).
+prof(gina).
+prof(jonathan).
+prof(mayela).
+prof(melissa).
+prof(mjose).
+prof(mpaula).
+prof(sol).

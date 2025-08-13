@@ -109,7 +109,6 @@ req(Nivel, resto, Resto) :-
     Resto #= Lecc_por_sem - Suma_Cantidad.
 
 
-
 % asignación de profesores a materias por nivel
 % prof(?Profesor, ?Nivel, ?Materia)
 %
@@ -124,7 +123,6 @@ prof(mpaula, trans, edfís).
 prof(jonathan, trans, infor).
 prof(audry, trans, inglés).
 prof(alonso, trans, música).
-prof(alisson, trans, resto).
 prof(audry, trans, resto).
 prof(sol, trans, resto).
 
@@ -207,7 +205,7 @@ prof(daleana, 6, resto).
 % Prof es un profesor, disponible en el día Dia, bloque Bloque y lección Leccion.
 
 disp(angie, mie, B, L) :-
-    member(B, [2,3]),
+    member(B, [1,2,3,4]),
     member(L, [a,b]).
 disp(mpaula, D, B, L) :-
     member(D, [lun,mar,jue]),

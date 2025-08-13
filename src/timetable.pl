@@ -1,9 +1,9 @@
 :- ensure_loaded('src/init.pl').
 
-:- use_module(module(timetable_base)).
-
-:- dynamic([asignado/6, 'SATISFIABLE'/0]).
-:- ensure_loaded(module(asignado)).
+:- use_module([
+    module(timetable_base),
+    module(validation)
+]).
 
 
 % show_timetables

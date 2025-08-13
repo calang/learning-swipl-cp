@@ -17,5 +17,7 @@ set -euo pipefail
 
 #set -x
 
-swipl -s 'src/init' -g 'show_timetables,halt' 'src/timetable.pl'
+# swipl -s 'src/init' -g 'show_timetables,halt' 'src/timetable.pl'
+
+swipl -s 'src/init' -g 'validation,halt' 'src/timetable.pl'
 
