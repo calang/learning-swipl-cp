@@ -26,8 +26,10 @@ req(inter, música, 1).
 
 req(trans, edfís, 2).
 req(trans, infor, 1).
-req(trans, inglés, 1).
+req(trans, inglés, 8).
 req(trans, música, 1).
+req(trans, resto_sol, 10).
+% req(trans, resto_audry, 8).
 
 req(1, arte, 1).
 req(1, ciencias, 4).
@@ -36,7 +38,7 @@ req(1, español, 7).
 req(1, estsoc, 4).
 req(1, ética, 1).
 req(1, infor, 2).
-req(1, inglés, 10).
+req(1, inglés, 8).
 req(1, mate, 8).
 req(1, música, 1).
 
@@ -123,8 +125,8 @@ prof(mpaula, trans, edfís).
 prof(jonathan, trans, infor).
 prof(audry, trans, inglés).
 prof(alonso, trans, música).
-prof(audry, trans, resto).
-prof(sol, trans, resto).
+prof(sol, trans, resto_sol).
+prof(alisson, trans, resto).
 
 prof(mjose, 1, arte).
 prof(sol, 1, ciencias).
