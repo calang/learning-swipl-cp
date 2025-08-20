@@ -19,7 +19,8 @@ show_timetables :-
 
 % timetable(+Nivel)
 %
-% Displays the timetable for a specific level.
+% Displays a generated timetable for a specific level
+% based on the defined blocks, lessons, and assigned subjects.
 timetable(Nivel) :-
     format('Timetable for ~w:~n', [Nivel]),
     findall(Dia, dia(Dia), Dias),
@@ -45,7 +46,6 @@ timetable(Nivel) :-
         )
     ),
     nl.
-
 
 
 % --- tests ---
