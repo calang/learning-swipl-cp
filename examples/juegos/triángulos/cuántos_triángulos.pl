@@ -1,5 +1,4 @@
 :- use_module(library(clpfd)).
-% :- use_module(library(clpr)).
 
 punto(1,0,0).
 punto(2,1,0).
@@ -55,7 +54,6 @@ run :-
 show_t([punto(I1,X1,Y1), punto(I2,X2,Y2), punto(I3,X3,Y3)]) :-
     atomic_list_concat([I1,I2,I3], '', T),
     % format('~w: ~w ~w ~w~n', [T, punto(I1,X1,Y1), punto(I2,X2,Y2), punto(I3,X3,Y3)]).
-    % format('~w: ~w~n', [T, 'ax.plot'( [X1, X2, X3, X1], [Y1, Y2, Y3, Y1] )]).
     atomic_list_concat(
         [   'cat plot.pyt | sed ',
             '-e "s/###AXPLOT###/ax.plot( [',

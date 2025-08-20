@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Run from the top level directory:
-# $ this_file
+# $ ./this_file
 
 
 # exit on any command failure
