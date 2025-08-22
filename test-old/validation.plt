@@ -9,7 +9,7 @@ Invoked with a command like this:
 # -s uses the file as a script, without preventing the loading of the initialization file
 # -g runs the goal after loading the file
 
-swipl -g run_tests,halt 'tests/validation.plt'
+swipl -g run_tests,halt 'test/validation.plt'
 ~~~
 
 @author Carlos Lang
