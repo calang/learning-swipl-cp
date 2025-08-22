@@ -6,11 +6,11 @@
     grupo/2,
     aula/2,
     prof/2,
-    grupo_materia_leccion/4,
+    grupo_materia_lecciones/4,
     prof_grupo_materia/3,
     disp_prof_dia_bloque_leccion/4,
     dia_bloque_leccion/3,
-    dia/2,
+    dia/1,
     bloque/1,
     leccion/1
 ]).
@@ -23,7 +23,7 @@ lecc_por_sem(40).
 % LD es total de lecciones por dia por grupo.
 lecc_por_dia(8).
 
-% grupo(?Id:int, ?Grupo:atom).
+% grupo(?Id:int, ?Grupo:atomic).
 grupo(1, inter).
 grupo(2, trans).
 grupo(3, 1).
@@ -33,7 +33,7 @@ grupo(6, 4).
 grupo(7, 5).
 grupo(8, 6).
 
-% aula(?Id:int, ?Aula:atom).
+% aula(?Id:int, ?Aula:atomic).
 aula(1, inter).
 aula(2, trans).
 aula(3, 1).
@@ -56,97 +56,97 @@ prof(10, mjose).
 prof(11, mpaula).
 prof(12, sol).
 
-% grupo_materia_leccion(+Id:int, +Grupo:atom, ?Materia:atom, ?Cant_lecciones:int)
+% grupo_materia_lecciones(+Id:int, +Grupo:atomic, ?Materia:atom, ?Cant_lecciones:int)
 %
 % El Grupo, de Materia requiere Cant_lecciones.
 
-grupo_materia_leccion(1, inter, edfís, 2).
-grupo_materia_leccion(2, inter, infor, 1).
-grupo_materia_leccion(3, inter, inglés, 11).
-grupo_materia_leccion(4, inter, música, 1).
+grupo_materia_lecciones(1, inter, edfís, 2).
+grupo_materia_lecciones(2, inter, infor, 1).
+grupo_materia_lecciones(3, inter, inglés, 11).
+grupo_materia_lecciones(4, inter, música, 1).
 
-grupo_materia_leccion(5, trans, edfís, 2).
-grupo_materia_leccion(6, trans, infor, 1).
-grupo_materia_leccion(7, trans, inglés, 8).
-grupo_materia_leccion(8, trans, música, 1).
-grupo_materia_leccion(9, trans, resto_sol, 10).
-% grupo_materia_leccion(10, trans, resto_audry, 8).
+grupo_materia_lecciones(5, trans, edfís, 2).
+grupo_materia_lecciones(6, trans, infor, 1).
+grupo_materia_lecciones(7, trans, inglés, 8).
+grupo_materia_lecciones(8, trans, música, 1).
+grupo_materia_lecciones(9, trans, resto_sol, 10).
+% grupo_materia_lecciones(10, trans, resto_audry, 8).
 
-grupo_materia_leccion(11, 1, arte, 1).
-grupo_materia_leccion(12, 1, ciencias, 4).
-grupo_materia_leccion(13, 1, edfís, 2).
-grupo_materia_leccion(14, 1, español, 7).
-grupo_materia_leccion(15, 1, estsoc, 4).
-grupo_materia_leccion(16, 1, ética, 1).
-grupo_materia_leccion(17, 1, infor, 2).
-grupo_materia_leccion(18, 1, inglés, 8).
-grupo_materia_leccion(19, 1, mate, 8).
-grupo_materia_leccion(20, 1, música, 1).
+grupo_materia_lecciones(11, 1, arte, 1).
+grupo_materia_lecciones(12, 1, ciencias, 4).
+grupo_materia_lecciones(13, 1, edfís, 2).
+grupo_materia_lecciones(14, 1, español, 7).
+grupo_materia_lecciones(15, 1, estsoc, 4).
+grupo_materia_lecciones(16, 1, ética, 1).
+grupo_materia_lecciones(17, 1, infor, 2).
+grupo_materia_lecciones(18, 1, inglés, 8).
+grupo_materia_lecciones(19, 1, mate, 8).
+grupo_materia_lecciones(20, 1, música, 1).
 
-grupo_materia_leccion(21, 2, arte, 1).
-grupo_materia_leccion(22, 2, ciencias, 4).
-grupo_materia_leccion(23, 2, edfís, 2).
-grupo_materia_leccion(24, 2, español, 7).
-grupo_materia_leccion(25, 2, estsoc, 4).
-grupo_materia_leccion(26, 2, ética, 1).
-grupo_materia_leccion(27, 2, infor, 2).
-grupo_materia_leccion(28, 2, inglés, 10).
-grupo_materia_leccion(29, 2, mate, 8).
-grupo_materia_leccion(30, 2, música, 1).
+grupo_materia_lecciones(21, 2, arte, 1).
+grupo_materia_lecciones(22, 2, ciencias, 4).
+grupo_materia_lecciones(23, 2, edfís, 2).
+grupo_materia_lecciones(24, 2, español, 7).
+grupo_materia_lecciones(25, 2, estsoc, 4).
+grupo_materia_lecciones(26, 2, ética, 1).
+grupo_materia_lecciones(27, 2, infor, 2).
+grupo_materia_lecciones(28, 2, inglés, 10).
+grupo_materia_lecciones(29, 2, mate, 8).
+grupo_materia_lecciones(30, 2, música, 1).
 
-grupo_materia_leccion(31, 3, arte, 1).
-grupo_materia_leccion(32, 3, ciencias, 4).
-grupo_materia_leccion(33, 3, edfís, 2).
-grupo_materia_leccion(34, 3, español, 7).
-grupo_materia_leccion(35, 3, estsoc, 4).
-grupo_materia_leccion(36, 3, ética, 1).
-grupo_materia_leccion(37, 3, infor, 2).
-grupo_materia_leccion(38, 3, inglés, 10).
-grupo_materia_leccion(39, 3, mate, 8).
-grupo_materia_leccion(40, 3, música, 1).
+grupo_materia_lecciones(31, 3, arte, 1).
+grupo_materia_lecciones(32, 3, ciencias, 4).
+grupo_materia_lecciones(33, 3, edfís, 2).
+grupo_materia_lecciones(34, 3, español, 7).
+grupo_materia_lecciones(35, 3, estsoc, 4).
+grupo_materia_lecciones(36, 3, ética, 1).
+grupo_materia_lecciones(37, 3, infor, 2).
+grupo_materia_lecciones(38, 3, inglés, 10).
+grupo_materia_lecciones(39, 3, mate, 8).
+grupo_materia_lecciones(40, 3, música, 1).
 
-grupo_materia_leccion(41, 4, ciencias, 4).
-grupo_materia_leccion(42, 4, edfís, 2).
-grupo_materia_leccion(43, 4, español, 6).
-grupo_materia_leccion(44, 4, estsoc, 5).
-grupo_materia_leccion(45, 4, ética, 1).
-grupo_materia_leccion(46, 4, francés, 2).
-grupo_materia_leccion(47, 4, infor, 2).
-grupo_materia_leccion(48, 4, inglés, 9).
-grupo_materia_leccion(49, 4, mate, 8).
-grupo_materia_leccion(50, 4, música, 1).
+grupo_materia_lecciones(41, 4, ciencias, 4).
+grupo_materia_lecciones(42, 4, edfís, 2).
+grupo_materia_lecciones(43, 4, español, 6).
+grupo_materia_lecciones(44, 4, estsoc, 5).
+grupo_materia_lecciones(45, 4, ética, 1).
+grupo_materia_lecciones(46, 4, francés, 2).
+grupo_materia_lecciones(47, 4, infor, 2).
+grupo_materia_lecciones(48, 4, inglés, 9).
+grupo_materia_lecciones(49, 4, mate, 8).
+grupo_materia_lecciones(50, 4, música, 1).
 
-grupo_materia_leccion(51, 5, ciencias, 4).
-grupo_materia_leccion(52, 5, edfís, 2).
-grupo_materia_leccion(53, 5, español, 5).
-grupo_materia_leccion(54, 5, estsoc, 6).
-grupo_materia_leccion(55, 5, ética, 1).
-grupo_materia_leccion(56, 5, francés, 2).
-grupo_materia_leccion(57, 5, infor, 2).
-grupo_materia_leccion(58, 5, inglés, 9).
-grupo_materia_leccion(59, 5, mate, 8).
-grupo_materia_leccion(60, 5, música, 1).
+grupo_materia_lecciones(51, 5, ciencias, 4).
+grupo_materia_lecciones(52, 5, edfís, 2).
+grupo_materia_lecciones(53, 5, español, 5).
+grupo_materia_lecciones(54, 5, estsoc, 6).
+grupo_materia_lecciones(55, 5, ética, 1).
+grupo_materia_lecciones(56, 5, francés, 2).
+grupo_materia_lecciones(57, 5, infor, 2).
+grupo_materia_lecciones(58, 5, inglés, 9).
+grupo_materia_lecciones(59, 5, mate, 8).
+grupo_materia_lecciones(60, 5, música, 1).
 
-grupo_materia_leccion(61, 6, ciencias, 6).
-grupo_materia_leccion(62, 6, edfís, 2).
-grupo_materia_leccion(63, 6, español, 5).
-grupo_materia_leccion(64, 6, estsoc, 4).
-grupo_materia_leccion(65, 6, ética, 1).
-grupo_materia_leccion(66, 6, francés, 2).
-grupo_materia_leccion(67, 6, infor, 2).
-grupo_materia_leccion(68, 6, inglés, 9).
-grupo_materia_leccion(69, 6, mate, 8).
-grupo_materia_leccion(70, 6, música, 1).
+grupo_materia_lecciones(61, 6, ciencias, 6).
+grupo_materia_lecciones(62, 6, edfís, 2).
+grupo_materia_lecciones(63, 6, español, 5).
+grupo_materia_lecciones(64, 6, estsoc, 4).
+grupo_materia_lecciones(65, 6, ética, 1).
+grupo_materia_lecciones(66, 6, francés, 2).
+grupo_materia_lecciones(67, 6, infor, 2).
+grupo_materia_lecciones(68, 6, inglés, 9).
+grupo_materia_lecciones(69, 6, mate, 8).
+grupo_materia_lecciones(70, 6, música, 1).
 
 % Update the dynamic clause for resto
-grupo_materia_leccion(Id, Grupo, resto, Resto) :-
+grupo_materia_lecciones(Id, Grupo, resto, Resto) :-
     lecc_por_sem(Lecc_por_sem),
     grupo(IDG, Grupo),
     Id #= 100 + IDG *
     findall(
         Cantidad,
         (   dif(resto, Materia),
-            grupo_materia_leccion(_, Grupo, Materia, Cantidad)
+            grupo_materia_lecciones(_, Grupo, Materia, Cantidad)
         ),
         Lecciones
     ),
@@ -248,23 +248,23 @@ prof_grupo_materia(daleana, 6, resto).
 % Existe para un Dia un Bloque con una Leccion.
 
 dia_bloque_leccion(Dia, Bloque, Leccion) :-
-    dia(_IdD, Dia),
+    dia(Dia),
     bloque(Bloque),
     leccion(Leccion).
 
-dia(1, lun).
-dia(2, mar).
-dia(3, mie).
-dia(4, jue).
-dia(5, vie).
+dia(lun).
+dia(mar).
+dia(mie).
+dia(jue).
+dia(vie).
 
 bloque(1).
 bloque(2).
 bloque(3).
 bloque(4).
 
-leccion(1).
-leccion(2).
+leccion(a).
+leccion(b).
 
 
 % disp_prof_dia_bloque_leccion(?Prof:atom, ?Dia:atom, ?Bloque:atom, ?Leccion:atom).
