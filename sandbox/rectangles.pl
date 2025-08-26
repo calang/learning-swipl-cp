@@ -17,6 +17,33 @@ test3 :-
 test4 :-
     disjoint2([a(0,1,1,1), b(0,1,1,1)]).
 
+
+/*
+Notes:
+Below is a simple timetable problem with
+- 2 professors (prof1, prof2)
+- 2 groups (1, 2)
+- 6 lessons (0..5)
+- each professor teaches 3 lessons to each group (total 6 lessons per professor)
+- each lesson is 1 time block long
+- no overlapping lessons for professors or groups
+- each professor teaches only one group at a time
+
+The strategy is to represent each lesson as a rectangle of width 1 (one time block)
+and height 1 (one group), and then use disjoint2/1 to ensure no overlapping rectangles.
+
+Notice that the functor names (prof1, prof2) are used to identify the professors.
+
+disjoint2/1
+- requires the rectangles to be in the form F(X, W, Y, H),
+where (X,Y) is the bottom-left corner of the rectangle, W is its width and H its height.
+- ensures that no two rectangles overlap
+- ignores the functor name, so it can be used to represent different entities (professors in this case)
+
+Additional constraints are added via the constrain_cases/1 predicate.
+*/
+
+
 % ProfX(Grupo, cant_de _grupos=1, Lecc, cant_de_lecc=1).
 % ProfX(Grupo, 1, Lecc, 1).
 cases(Cs) :-
@@ -47,11 +74,16 @@ constrain_cases(Cs) :-
     avoid_group_overlaps(CsList).
 
 
+% define_lecc_domain(+Cs:list).
+% Cs is a list of case terms for which the domain of the lesson variable is defined.
 define_lecc_domain(Cs) :-
     maplist(lecc_in, Cs, Lecc_List),
     Lecc_List ins 0..5.
 
 
+% avoid_profgroup_lesson_dup(+CsList:list).
+% CsList is a list of case lists (the result of applying =.. to each case term).
+% Ensures that no professor teaches the same lesson to the same group more than once.
 avoid_profgroup_lesson_dup(CsList) :-
     % extract (professor,group) tuples
     findall(
@@ -71,6 +103,9 @@ avoid_profgroup_lesson_dup(CsList) :-
     maplist(chain2(#<), ProfGLeccs_List).
 
 
+% avoid_prof_overlaps(+CsList:list).
+% CsList is a list of case lists (the result of applying =.. to each case term).
+% Ensures that no professor has overlapping lessons.
 avoid_prof_overlaps(CsList) :-
     % extract profs
     maplist(nth0(0), CsList, Prof_List),
@@ -86,6 +121,9 @@ avoid_prof_overlaps(CsList) :-
     maplist(all_distinct, ProfLecc_Lists).
 
 
+% avoid_group_overlaps(+CsList:list).
+% CsList is a list of case lists (the result of applying =.. to each case term).
+% Ensures that no group has overlapping lessons.
 avoid_group_overlaps(CsList) :-
     % extract groups
     maplist(nth0(1), CsList, Group_List),
@@ -101,6 +139,7 @@ avoid_group_overlaps(CsList) :-
     maplist(all_distinct, GroupLecc_Lists).
 
 
+% chain2(+Rel:operator, +List:list).
 chain2(Rel, List) :-
     chain(List, Rel).
 
