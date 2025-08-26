@@ -34,9 +34,6 @@ cases(Cs) :-
         prof2(2,1,L11,1),
         prof2(2,1,L12,1)
     ],
-    % avoid_profgroup_dup_lessons
-    L1 #< L2, L2 #< L3, L4 #< L5, L5 #< L6,
-    L7 #< L8, L8 #< L9, L10 #< L11, L11 #< L12,
     all_distinct([L1,L2,L3,L4,L5,L6]),
     all_distinct([L7,L8,L9,L10,L11,L12]),
     all_distinct([L1,L2,L3,L7,L8,L9]),
@@ -45,14 +42,14 @@ cases(Cs) :-
 
 constrain_cases(Cs) :-
     define_lecc_domain(Cs),
-    avoid_profgroup_dup_lessons(Cs).
+    avoid_profgroup_lesson_dup(Cs).
 
 define_lecc_domain(Cs) :-
     maplist(lecc_in, Cs, Lecc_List),
     Lecc_List ins 0..5.
 
-avoid_profgroup_dup_lessons(Cs) :-
-    format('Cs01: ~w~n', [Cs]),
+avoid_profgroup_lesson_dup(Cs) :-
+    % format('Cs01: ~w~n', [Cs]),
     % transform Cs into a list of lists
     maplist(=.., Cs, CsList),
     % extract (professor,group) tuples
@@ -67,12 +64,12 @@ avoid_profgroup_dup_lessons(Cs) :-
     pairs_keys_values(Pairs, ProfGrupo_Tuples, Lecc_List),
     % group by (prof,grupo))
     group_pairs_by_key(Pairs, ProfGroup_LeccListVal),
-    % for each professor, avoid lesson assignment duplication
+    % get a list of lessons for each profgroup
     pairs_values(ProfGroup_LeccListVal, ProfGLeccs_List),
     % format('ProfGLeccs_List 1: ~w~n', [ProfGLeccs_List]),
-    % maplist(all_distinct, ProfGLeccs_List),
-    maplist(chain2(#<), ProfGLeccs_List),
-    format('ProfGLeccs_List 2: ~w~n', [ProfGLeccs_List]).
+    % and enforce non-duplication of the lessons of each profgroup
+    maplist(chain2(#<), ProfGLeccs_List).
+    % format('ProfGLeccs_List 2: ~w~n', [ProfGLeccs_List]).
 
 
 chain2(Rel, List) :-
@@ -88,7 +85,7 @@ main :-
     disjoint2(Cs),
     % format('Cs2: ~w~n', [Cs]),
     leccs_in(Cs, Lecc_List),
-    format('Lecc_List: ~w~n', [Lecc_List]),
+    % format('Lecc_List: ~w~n', [Lecc_List]),
     writeln("----.----1----.----2"),
     label(Lecc_List),
     write("|"), fail.
