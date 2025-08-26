@@ -21,23 +21,19 @@ test4 :-
 % ProfX(Grupo, 1, Lecc, 1).
 cases(Cs) :-
     Cs = [
-        prof1(1,1,L1,1),
-        prof1(1,1,L2,1),
-        prof1(1,1,L3,1),
-        prof1(2,1,L4,1),
-        prof1(2,1,L5,1),
-        prof1(2,1,L6,1),
-        prof2(1,1,L7,1),
-        prof2(1,1,L8,1),
-        prof2(1,1,L9,1),
-        prof2(2,1,L10,1),
-        prof2(2,1,L11,1),
-        prof2(2,1,L12,1)
-    ],
-    % all_distinct([L1,L2,L3,L4,L5,L6]),
-    % all_distinct([L7,L8,L9,L10,L11,L12]),
-    all_distinct([L1,L2,L3,L7,L8,L9]),
-    all_distinct([L4,L5,L6,L10,L11,L12]).
+        prof1(1,1,_,1),
+        prof1(1,1,_,1),
+        prof1(1,1,_,1),
+        prof1(2,1,_,1),
+        prof1(2,1,_,1),
+        prof1(2,1,_,1),
+        prof2(1,1,_,1),
+        prof2(1,1,_,1),
+        prof2(1,1,_,1),
+        prof2(2,1,_,1),
+        prof2(2,1,_,1),
+        prof2(2,1,_,1)
+    ].
 
 
 constrain_cases(Cs) :-
@@ -47,11 +43,14 @@ constrain_cases(Cs) :-
     maplist(=.., Cs, CsList),
 
     avoid_profgroup_lesson_dup(CsList),
-    avoid_prof_overlaps(CsList).
+    avoid_prof_overlaps(CsList),
+    avoid_group_overlaps(CsList).
+
 
 define_lecc_domain(Cs) :-
     maplist(lecc_in, Cs, Lecc_List),
     Lecc_List ins 0..5.
+
 
 avoid_profgroup_lesson_dup(CsList) :-
     % extract (professor,group) tuples
@@ -73,6 +72,7 @@ avoid_profgroup_lesson_dup(CsList) :-
     maplist(chain2(#<), ProfGLeccs_List).
     % format('ProfGLeccs_List 2: ~w~n', [ProfGLeccs_List]).
 
+
 avoid_prof_overlaps(CsList) :-
     % extract profs
     maplist(nth0(0), CsList, Prof_List),
@@ -88,6 +88,23 @@ avoid_prof_overlaps(CsList) :-
     % and enforce non-duplication of the lessons of each profgroup
     maplist(all_distinct, ProfLecc_Lists).
     % format('ProfLecc_Lists 2: ~w~n', [ProfLecc_Lists]).
+
+
+avoid_group_overlaps(CsList) :-
+    % extract groups
+    maplist(nth0(1), CsList, Group_List),
+    % extract lessons
+    maplist(nth0(3), CsList, Lecc_List),
+    % create Group-Lecc pairs
+    pairs_keys_values(Pairs, Group_List, Lecc_List),
+    % group by group
+    group_pairs_by_key(Pairs, Group_LeccList),
+    % get a list of lessons for each group
+    pairs_values(Group_LeccList, GroupLecc_Lists),
+    % format('GroupLecc_Lists 1: ~w~n', [GroupLecc_Lists]),
+    % and enforce non-duplication of the lessons of each profgroup
+    maplist(all_distinct, GroupLecc_Lists).
+    % format('GroupLecc_Lists 2: ~w~n', [GroupLecc_Lists]).
 
 
 chain2(Rel, List) :-
