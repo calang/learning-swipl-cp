@@ -1,3 +1,6 @@
+use_module(library(clpfd)).
+
+
 % F(X_i, W_i, Y_i, H_i),
 % where (X_i, Y_i) is the bottom-left corner of rectangle i,
 % W_i is its width and H_i is its height.
@@ -31,14 +34,7 @@ cases(Cs) :-
         prof2(2,1,L11,1),
         prof2(2,1,L12,1)
     ],
-    % [G1,G2,G3,G4,G5,G6] ins 0..1,
-    % [G1,G2] ins 0..1,
-
-    % define lesson variables domain
-    maplist(lecc_in, Cs, Lecc_List),
-    Lecc_List ins 0..5,
-    % [L1,L2,L3,L4,L5,L6,L7,L8,L9,L10,L11,L12] ins 0..5,
-    % separate_prof_lessons(Cs),
+    % avoid_profgroup_dup_lessons
     L1 #< L2, L2 #< L3, L4 #< L5, L5 #< L6,
     L7 #< L8, L8 #< L9, L10 #< L11, L11 #< L12,
     all_distinct([L1,L2,L3,L4,L5,L6]),
@@ -46,17 +42,59 @@ cases(Cs) :-
     all_distinct([L1,L2,L3,L7,L8,L9]),
     all_distinct([L4,L5,L6,L10,L11,L12]).
 
+
+constrain_cases(Cs) :-
+    define_lecc_domain(Cs),
+    avoid_profgroup_dup_lessons(Cs).
+
+define_lecc_domain(Cs) :-
+    maplist(lecc_in, Cs, Lecc_List),
+    Lecc_List ins 0..5.
+
+avoid_profgroup_dup_lessons(Cs) :-
+    format('Cs01: ~w~n', [Cs]),
+    % transform Cs into a list of lists
+    maplist(=.., Cs, CsList),
+    % extract (professor,group) tuples
+    findall(
+        (Prof, Grupo),
+        member([Prof, Grupo, _, _, _], CsList),
+        ProfGrupo_Tuples
+    ),
+    % extract lessons
+    maplist(nth0(3), CsList, Lecc_List),
+    % create pairs of ((prof,grupo), Lecc)
+    pairs_keys_values(Pairs, ProfGrupo_Tuples, Lecc_List),
+    % group by (prof,grupo))
+    group_pairs_by_key(Pairs, ProfGroup_LeccListVal),
+    % for each professor, avoid lesson assignment duplication
+    pairs_values(ProfGroup_LeccListVal, ProfGLeccs_List),
+    % format('ProfGLeccs_List 1: ~w~n', [ProfGLeccs_List]),
+    % maplist(all_distinct, ProfGLeccs_List),
+    maplist(chain2(#<), ProfGLeccs_List),
+    format('ProfGLeccs_List 2: ~w~n', [ProfGLeccs_List]).
+
+
+chain2(Rel, List) :-
+    chain(List, Rel).
+
+
+
 main :- 
     cases(Cs),
-    % constrain_cases(Cs),
+    constrain_cases(Cs),
+
     % format('Cs1: ~w~n', [Cs]),
     disjoint2(Cs),
     % format('Cs2: ~w~n', [Cs]),
     leccs_in(Cs, Lecc_List),
-    % format('Lecc_List: ~w~n', [Lecc_List]),
+    format('Lecc_List: ~w~n', [Lecc_List]),
+    writeln("----.----1----.----2"),
     label(Lecc_List),
-    print_schedule(Cs).
+    write("|"), fail.
+    % print_schedule(Cs),
     % format('Cs3: ~w~n', [Cs]).
+main.
 
 
 profs_in(Cs, Var_List) :-
@@ -83,14 +121,14 @@ lecc_in(Term, Lecc) :-
 
 print_schedule(Cs) :-
     maplist(=.., Cs, List),
-    % format('List: ~w~n', [List]),
+    format('List: ~w~n', [List]),
     findall(
         [Prof, Lecc, Grupo],
         member([Prof, Grupo, _, Lecc, _], List),
         Schedule
     ),
     sort(Schedule, Sorted_Schedule),
-    % format('Sorted_Schedule: ~w~n', [Sorted_Schedule]),
+    format('Sorted_Schedule: ~w~n', [Sorted_Schedule]),
     findall(Prof, member([Prof, _, _], Sorted_Schedule), Profs),
     sort(Profs, Unique_Profs),
     forall(
