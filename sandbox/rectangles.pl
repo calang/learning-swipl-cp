@@ -67,10 +67,8 @@ avoid_profgroup_lesson_dup(CsList) :-
     group_pairs_by_key(Pairs, ProfGroup_LeccListVal),
     % get a list of lessons for each profgroup
     pairs_values(ProfGroup_LeccListVal, ProfGLeccs_List),
-    % format('ProfGLeccs_List 1: ~w~n', [ProfGLeccs_List]),
     % and enforce non-duplication of the lessons of each profgroup
     maplist(chain2(#<), ProfGLeccs_List).
-    % format('ProfGLeccs_List 2: ~w~n', [ProfGLeccs_List]).
 
 
 avoid_prof_overlaps(CsList) :-
@@ -84,10 +82,8 @@ avoid_prof_overlaps(CsList) :-
     group_pairs_by_key(Pairs, Prof_LeccList),
     % get a list of lessons for each prof
     pairs_values(Prof_LeccList, ProfLecc_Lists),
-    % format('ProfLecc_Lists 1: ~w~n', [ProfLecc_Lists]),
     % and enforce non-duplication of the lessons of each profgroup
     maplist(all_distinct, ProfLecc_Lists).
-    % format('ProfLecc_Lists 2: ~w~n', [ProfLecc_Lists]).
 
 
 avoid_group_overlaps(CsList) :-
@@ -101,10 +97,8 @@ avoid_group_overlaps(CsList) :-
     group_pairs_by_key(Pairs, Group_LeccList),
     % get a list of lessons for each group
     pairs_values(Group_LeccList, GroupLecc_Lists),
-    % format('GroupLecc_Lists 1: ~w~n', [GroupLecc_Lists]),
     % and enforce non-duplication of the lessons of each profgroup
     maplist(all_distinct, GroupLecc_Lists).
-    % format('GroupLecc_Lists 2: ~w~n', [GroupLecc_Lists]).
 
 
 chain2(Rel, List) :-
@@ -115,17 +109,10 @@ main :-
     cases(Cs),
     constrain_cases(Cs),
 
-    % format('Cs1: ~w~n', [Cs]),
     disjoint2(Cs),
-    % format('Cs2: ~w~n', [Cs]),
     leccs_in(Cs, Lecc_List),
-    % format('Lecc_List: ~w~n', [Lecc_List]),
-    writeln("----.----1----.----2"),
     label(Lecc_List),
-    write("|"), fail.
-    % print_schedule(Cs),
-    % format('Cs3: ~w~n', [Cs]).
-main.
+    print_schedule(Cs).
 
 
 profs_in(Cs, Var_List) :-
@@ -152,14 +139,12 @@ lecc_in(Term, Lecc) :-
 
 print_schedule(Cs) :-
     maplist(=.., Cs, List),
-    format('List: ~w~n', [List]),
     findall(
         [Prof, Lecc, Grupo],
         member([Prof, Grupo, _, Lecc, _], List),
         Schedule
     ),
     sort(Schedule, Sorted_Schedule),
-    format('Sorted_Schedule: ~w~n', [Sorted_Schedule]),
     findall(Prof, member([Prof, _, _], Sorted_Schedule), Profs),
     sort(Profs, Unique_Profs),
     forall(
