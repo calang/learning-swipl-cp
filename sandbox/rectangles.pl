@@ -34,24 +34,26 @@ cases(Cs) :-
         prof2(2,1,L11,1),
         prof2(2,1,L12,1)
     ],
-    all_distinct([L1,L2,L3,L4,L5,L6]),
-    all_distinct([L7,L8,L9,L10,L11,L12]),
+    % all_distinct([L1,L2,L3,L4,L5,L6]),
+    % all_distinct([L7,L8,L9,L10,L11,L12]),
     all_distinct([L1,L2,L3,L7,L8,L9]),
     all_distinct([L4,L5,L6,L10,L11,L12]).
 
 
 constrain_cases(Cs) :-
     define_lecc_domain(Cs),
-    avoid_profgroup_lesson_dup(Cs).
+
+    % transform Cs into a list of lists
+    maplist(=.., Cs, CsList),
+
+    avoid_profgroup_lesson_dup(CsList),
+    avoid_prof_overlaps(CsList).
 
 define_lecc_domain(Cs) :-
     maplist(lecc_in, Cs, Lecc_List),
     Lecc_List ins 0..5.
 
-avoid_profgroup_lesson_dup(Cs) :-
-    % format('Cs01: ~w~n', [Cs]),
-    % transform Cs into a list of lists
-    maplist(=.., Cs, CsList),
+avoid_profgroup_lesson_dup(CsList) :-
     % extract (professor,group) tuples
     findall(
         (Prof, Grupo),
@@ -71,10 +73,25 @@ avoid_profgroup_lesson_dup(Cs) :-
     maplist(chain2(#<), ProfGLeccs_List).
     % format('ProfGLeccs_List 2: ~w~n', [ProfGLeccs_List]).
 
+avoid_prof_overlaps(CsList) :-
+    % extract profs
+    maplist(nth0(0), CsList, Prof_List),
+    % extract lessons
+    maplist(nth0(3), CsList, Lecc_List),
+    % create Prof-Lecc pairs
+    pairs_keys_values(Pairs, Prof_List, Lecc_List),
+    % group by prof
+    group_pairs_by_key(Pairs, Prof_LeccList),
+    % get a list of lessons for each prof
+    pairs_values(Prof_LeccList, ProfLecc_Lists),
+    % format('ProfLecc_Lists 1: ~w~n', [ProfLecc_Lists]),
+    % and enforce non-duplication of the lessons of each profgroup
+    maplist(all_distinct, ProfLecc_Lists).
+    % format('ProfLecc_Lists 2: ~w~n', [ProfLecc_Lists]).
+
 
 chain2(Rel, List) :-
     chain(List, Rel).
-
 
 
 main :- 
