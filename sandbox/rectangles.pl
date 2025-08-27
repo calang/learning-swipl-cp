@@ -154,21 +154,21 @@ main :-
     print_schedule(Cs).
 
 
-profs_in(Cs, Var_List) :-
-    maplist(prof_in, Cs, Var_List).
+% profs_in(Cs, Var_List) :-
+%     maplist(prof_in, Cs, Var_List).
 
-groups_in(Cs, Var_List) :-
-    maplist(group_in, Cs, Var_List).
+% groups_in(Cs, Var_List) :-
+%     maplist(group_in, Cs, Var_List).
 
 leccs_in(Cs, Var_List) :-
     maplist(lecc_in, Cs, Var_List).
 
 
-prof_in(Term, Prof) :-
-    Term =.. [Prof, _Group, _, _Lecc, _].
+% prof_in(Term, Prof) :-
+%     Term =.. [Prof, _Group, _, _Lecc, _].
 
-group_in(Term, Group) :-
-    Term =.. [_Func, Group, _, _Lecc, _].
+% group_in(Term, Group) :-
+%     Term =.. [_Func, Group, _, _Lecc, _].
 
 lecc_in(Term, Lecc) :-
     Term =.. [_Func, _Group, _, Lecc, _].
